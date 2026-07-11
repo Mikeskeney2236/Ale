@@ -198,23 +198,17 @@ function createJet(direction) {
 }
 const jetTop = createJet(1); const jetBottom = createJet(-1); scene.add(jetTop, jetBottom);
 
-// CORRECCIÓN DE COLOR AQUÍ
 function mkSpecialSpr(txt) {
-  const cv = document.createElement('canvas'); cv.width = 1200; cv.height = 200;
+  const cv = document.createElement('canvas'); cv.width = 1400; cv.height = 300;
   const cx = cv.getContext('2d');
-  cx.font = "bold 100px 'Quicksand', sans-serif";
+  cx.fillStyle = 'rgba(0, 0, 0, 0.4)'; 
+  cx.beginPath(); cx.roundRect(100, 50, 1200, 200, 50); cx.fill();
+  cx.font = "bold 110px 'Quicksand', sans-serif";
   cx.textAlign = 'center'; cx.textBaseline = 'middle';
-  
-  // Color dorado vibrante con efecto neón
-  cx.shadowColor = '#FFD700';
-  cx.shadowBlur = 30;
-  cx.strokeStyle = '#DAA520';
-  cx.lineWidth = 4;
-  cx.strokeText(txt, 600, 100);
-  cx.fillStyle = '#FFFACD';
-  cx.fillText(txt, 600, 100);
-  
-  return new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+  cx.shadowColor = '#000000'; cx.shadowBlur = 20;
+  cx.fillStyle = '#FFD700'; cx.fillText(txt, 700, 150);
+  cx.strokeStyle = '#FFFFFF'; cx.lineWidth = 2; cx.strokeText(txt, 700, 150);
+  return new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false }));
 }
 const specialText = mkSpecialSpr("Ale y Mike 4ever");
 specialText.position.set(0, 80, 0); specialText.scale.set(isMobile ? 320 : 280, isMobile ? 53 : 46, 1);

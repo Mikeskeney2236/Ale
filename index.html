@@ -118,11 +118,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-
-const renderer = new THREE.WebGLRenderer({
-  canvas: document.getElementById('galaxy'),
-  antialias: !isMobile, alpha: true, powerPreference: 'high-performance'
-});
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('galaxy'), antialias: !isMobile, alpha: true, powerPreference: 'high-performance' });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -202,12 +198,22 @@ function createJet(direction) {
 }
 const jetTop = createJet(1); const jetBottom = createJet(-1); scene.add(jetTop, jetBottom);
 
+// CORRECCIÓN DE COLOR AQUÍ
 function mkSpecialSpr(txt) {
   const cv = document.createElement('canvas'); cv.width = 1200; cv.height = 200;
-  const cx = cv.getContext('2d'); cx.font = "bold 90px 'Quicksand', sans-serif";
+  const cx = cv.getContext('2d');
+  cx.font = "bold 100px 'Quicksand', sans-serif";
   cx.textAlign = 'center'; cx.textBaseline = 'middle';
-  cx.shadowColor = '#ffd700'; cx.shadowBlur = 25;
-  cx.fillStyle = '#ffdf00'; cx.fillText(txt, 600, 100);
+  
+  // Color dorado vibrante con efecto neón
+  cx.shadowColor = '#FFD700';
+  cx.shadowBlur = 30;
+  cx.strokeStyle = '#DAA520';
+  cx.lineWidth = 4;
+  cx.strokeText(txt, 600, 100);
+  cx.fillStyle = '#FFFACD';
+  cx.fillText(txt, 600, 100);
+  
   return new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
 }
 const specialText = mkSpecialSpr("Ale y Mike 4ever");
